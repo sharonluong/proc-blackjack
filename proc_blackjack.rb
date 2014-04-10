@@ -19,6 +19,15 @@ puts "Hello, #{player}, here are your first cards:"
 hand = deck.last(2)
 puts hand
 
+puts "#{player}, would you like to hit or stay?"
+choice = gets.chomp
+
+if choice == 'hit'
+	hand = hand + deck.last(1)
+	puts hand
+else
+	puts "You chose to stay. Your hand is #{hand}"
+end
 
 
 
