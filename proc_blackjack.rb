@@ -1,35 +1,25 @@
-suit = []
-card = {}
+suits = []
+cards = []
+deck = []
 
-suit = %w[diamonds clubs hearts spades]
-card = {
-	:'ace'		=> 	1, 
-	:'two'		=>	2,
-	:'three'	=>	3,
-	:'four'		=>	4,
-	:'five'		=>	5,
-	:'six'		=>	6,
-	:'seven'	=> 	7,
-	:'eight'	=> 	8,
-	:'nine'		=> 	9,
-	:'ten'		=> 	10,
-	:'jack' 	=> 	10,
-	:'queen'	=> 	10,
-	:'king'		=>	10
-}
+suits = %w[diamonds clubs hearts spades]
+cards = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
+suits.each do |suit|
+  cards.each do |card|
+  deck << "#{card} of #{suit}"
+  end
+end
 
-card_names = card.keys
-random_card_names = card_names[rand(card_names.length)]
-
+deck.shuffle!
 
 puts 'Hello, what\'s your name?'
 player = gets.chomp
 
 puts "Hello, #{player}, here are your first cards:"
-
-hand = " #{random_card_names.to_s} of #{suit.sample.to_s} and #{random_card_names.to_s} of #{suit.sample.to_s} "
-
+hand = deck.last(2)
 puts hand
+
+
 
 
 #give two random cards from the deck (suit + card)
