@@ -1,32 +1,57 @@
-suits = []
-cards = []
-deck = []
+def calculate_total(cards)
+	arr = cards.map{|e| e[1]}
+
+	total = 0
+	arr.each do |a|
+		if a == 'A'
+			total += 11
+		if a.to_i == 0
+			total += 10
+		else
+			total += value.to_i
+		end
+
+	arr.select(|e| e == 'A').count.times do
+		if total > 21
+			total -=10
+		end
+	end
+
+	total
+end
 
 suits = %w[diamonds clubs hearts spades]
 cards = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
-suits.each do |suit|
-  cards.each do |card|
-  deck << "#{card} of #{suit}"
-  end
-end
-
+deck = suits.product(cards)
 deck.shuffle!
 
-puts 'Hello, what\'s your name?'
+playerhand = []
+dealerhand = []
+
+playerhand << deck.pop
+dealerhand << deck.pop
+playerhand << deck.pop
+dealerhand << deck.pop
+
+playertotal = calculate_total(playerhand)
+dealertotal = calculate_total(dealerhand)
+
+puts "Hello, what\'s your name?"
 player = gets.chomp
 
-puts "Hello, #{player}, here are your first cards:"
-hand = deck.last(2)
-puts hand
+puts "Hello, #{player}! Here are your cards: #{playerhand[0]} and #{playerhand[1]}"
+puts "Dealer has #{dealerhand[0]} and #{dealerhand[1]}"
 
-puts "#{player}, would you like to hit or stay?"
-choice = gets.chomp
+while playertotal < 21
+	puts "#{player}, would you like to hit or stay?"
+	choice = gets.chomp
 
-if choice == 'hit'
-	hand = hand + deck.last(1)
-	puts hand
-else
-	puts "You chose to stay. Your hand is #{hand}"
+	if choice == "hit"
+		playerhand << deck.pop
+		puts "You now have "
+	else
+		puts "Your total is #{playertotal}"
+	end
 end
 
 
