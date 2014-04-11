@@ -66,7 +66,8 @@ while playertotal < 21
 		playerhand << newhand
 		playertotal = calculate_total(playerhand)
 		if playertotal == 21
-			puts "Congratulations, #{player}!"
+			puts "Congratulations, #{player}. You won!"
+			exit
 		elsif playertotal > 21
 			puts "You busted! Game over."
 			exit
@@ -77,7 +78,7 @@ while playertotal < 21
 end
 
 if dealertotal == 21
-	puts "Too bad, the house won."
+	puts "The dealer has 21. Too bad, the house won."
 end
 
 while dealertotal <= 17
@@ -98,7 +99,7 @@ if dealertotal < 21
 	if playertotal > dealertotal
 		puts "Congratulations, #{player}, you won!"
 	elsif dealertotal > playertotal
-		puts "Too bad, the house won."
+		puts "The dealer has #{dealertotal}. Too bad, the house won."
 	else
 		puts "You tied the dealer. Here is your nonexistent bet back."
 	end
