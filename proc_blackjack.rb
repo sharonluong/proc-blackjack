@@ -97,8 +97,10 @@ end
 if dealertotal < 21
 	if playertotal > dealertotal
 		puts "Congratulations, #{player}, you won!"
-	else
+	elsif dealertotal > playertotal
 		puts "Too bad, the house won."
+	else
+		puts "You tied the dealer. Here is your nonexistent bet back."
 	end
 end
 
