@@ -5,13 +5,14 @@ def calculate_total(cards)
 	arr.each do |a|
 		if a == 'A'
 			total += 11
-		if a.to_i == 0
+		elsif a.to_i == 0
 			total += 10
 		else
-			total += value.to_i
+			total += a.to_i
 		end
+	end
 
-	arr.select(|e| e == 'A').count.times do
+	arr.select{|e| e == 'A'}.count.times do
 		if total > 21
 			total -=10
 		end
@@ -42,17 +43,65 @@ player = gets.chomp
 puts "Hello, #{player}! Here are your cards: #{playerhand[0]} and #{playerhand[1]}"
 puts "Dealer has #{dealerhand[0]} and #{dealerhand[1]}"
 
+if playertotal == 21
+	puts "Congratulations, #{player}!"
+	exit
+end
+
 while playertotal < 21
 	puts "#{player}, would you like to hit or stay?"
 	choice = gets.chomp
 
-	if choice == "hit"
-		playerhand << deck.pop
-		puts "You now have "
+	if !['hit', 'stay'].include?(choice)
+		puts "Error: enter hit or stay."
+		next
+	end
+
+	if choice == "stay"
+		puts "You chose to stay. Your total is #{playertotal}"
+		break
 	else
-		puts "Your total is #{playertotal}"
+		newhand = deck.pop
+		puts "Your new card is #{newhand}"
+		playerhand << newhand
+		playertotal = calculate_total(playerhand)
+		if playertotal == 21
+			puts "Congratulations, #{player}!"
+		elsif playertotal > 21
+			puts "You busted! Game over."
+			exit
+		else
+			puts "Your new total is #{playertotal}"
+		end
 	end
 end
+
+if dealertotal == 21
+	puts "Too bad, the house won."
+end
+
+while dealertotal <= 17
+	dealernewhand = deck.pop
+	dealerhand << dealernewhand
+	dealertotal = calculate_total(dealerhand)
+		if dealertotal == 21
+			puts "The dealer\' new card is #{dealernewhand} for a total of #{dealertotal}. The house won."
+		elsif dealertotal > 21
+			puts "The dealer\' new card is #{dealernewhand} for a total of #{dealertotal}. Dealer busted! #{player} wins!"
+			exit
+		else
+			puts "The dealer\'s new card is #{dealernewhand} for a total of #{dealertotal}"
+		end
+end
+
+if dealertotal < 21
+	if playertotal > dealertotal
+		puts "Congratulations, #{player}, you won!"
+	else
+		puts "Too bad, the house won."
+	end
+end
+
 
 
 
